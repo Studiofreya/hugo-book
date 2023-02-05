@@ -19,7 +19,5 @@
 </nav>
 
 <!-- Restore menu position as soon as possible to avoid flickering -->
-{{ $script := resources.Get "menu-reset.js" | resources.Minify }}
-{{ with $script.Content }}
-  <script nonce="shukieghieB3peev">{{ . | safeJS }}</script>
-{{ end }}
+{{ $script := resources.Get "menu-reset.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $script.RelPermalink }}" {{ template "integrity" $script }}></script>

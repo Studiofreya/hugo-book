@@ -22,7 +22,6 @@
 
 </div>
 
-{{ $script := resources.Get "clipboard.js" | resources.Minify }}
-{{ with $script.Content }}
-  <script nonce="shukieghieB3peev">{{ . | safeJS }}</script>
-{{ end }}
+
+{{ $script := resources.Get "clipboard.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $script.RelPermalink }}" {{ template "integrity" $script }}></script>
