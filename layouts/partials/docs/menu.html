@@ -16,6 +16,40 @@
 
 {{ partial "docs/menu-hugo" .Site.Menus.after }}
 {{ partial "docs/inject/menu-after" . }}
+
+{{/*  <h2>LAZY MENU</h2>
+<nav class="sidebar-nav">
+  {{ $currentPage := . }}
+  {{ range .Site.Menus.main }}
+  <a class="sidebar-nav-item{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+  {{ end }}
+</nav>  */}}
+
+<h2>INF MENU</h2>
+{{/*  {{ printf "%#v" .CurrentSection.Sections }}  */}}
+{{/*  {{- partial "menu-section.html" (dict "menu" .CurrentSection.Sections "currentPage" .Page) -}}  */}}
+{{- partial "menu-section.html" (dict "menu" .Site.Sections "currentPage" .Page) -}}
+
+{{/*  <h2>INF MENU 2</h2>  */}}
+{{/*  {{ partial "main_nav" . }}  */}}
+
+{{ if false }}
+<h2>MENU DEBUG</h2>
+{{/*  {{ printf "%#v" .Site.Menus }}  */}}
+{{ range $key, $value := .Site.Menus }}
+  <h3>KEY</h3>
+  {{ printf "%#v" $key }}
+  <h3>VALUE</h3>
+  {{/*  {{ printf "%#v" $value }}  */}}
+  {{/*  {{ .URL }}  */}}
+  {{/*  {{ range .Site.Menus $key }}  */}}
+  {{/*  {{ end }}  */}}
+  {{ range $value }}
+    {{/*  {{ printf "%#v" . }}  */}}
+    <li>{{ .Title }} ({{ .Name }}) - {{ .Children }} {{ .HasChildren }}</li>
+  {{ end }}
+{{ end }}
+{{ end }}
 </nav>
 
 <!-- Restore menu position as soon as possible to avoid flickering -->
